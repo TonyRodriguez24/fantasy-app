@@ -27,10 +27,10 @@ export default function PlayerCard({
     "OT",
     "DL",
     "DB",
-    'OG'
+    "OG",
   ];
   const activePlayers = Object.entries(players).filter(
-    ([id, player]) => 
+    ([id, player]) =>
       player.active &&
       !excludedPositions.includes(player.position) &&
       player.team !== null
@@ -38,20 +38,27 @@ export default function PlayerCard({
   console.log(activePlayers);
   return (
     <>
-      <ul>
-        {activePlayers.map(([id, player]) => [
-          <li key={id}>
-            <p>
-              {player.position} {player.full_name} ID: {id}
-            </p>
-            <p>{player.team}</p>
-            <p>{player.active}</p>
+      <ul className="flex flex-col items-center bg-blue-500 space-y-2 p-3 min-h-screen">
+        {activePlayers.map(([id, player]) => (
+          <li
+            className="flex flex-col items-center w-full max-w-sm bg-white rounded-lg shadow-md"
+            key={id}>
+            {/* Centered Image */}
             <img
               src={`https://sleepercdn.com/content/nfl/players/thumb/${id}.jpg`}
               width={64}
+              height={64}
+              className="rounded-full"
             />
-          </li>,
-        ])}
+
+            {/* Left-aligned Text */}
+            <div className="flex flex-col justify-center items-center text-left">
+              <p className="font-semibold text-lg">{player.full_name}</p>
+              <p className="text-gray-600">{player.position}</p>
+              <p className="text-gray-500">Team: {player.team}</p>
+            </div>
+          </li>
+        ))}
       </ul>
     </>
   );
